@@ -12,7 +12,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                      level=logging.INFO)
 logger = logging.getLogger(__name__)
 OPTIONS, BEGIN, LOGIN, SENHA, COMENTARIOS, HASH_COMENT, HASH_CURTIR, CURTE_FOTOS, OPTIONS_FOLLOW, FOLLOW_PROFILE,\
-FOLLOW_BY_PROFILE, FOLLOW_PROFILE2, FOLLOW_BY_PROFILE2, CANCEL, OPTIONS_LIKE, OPTIONS_COMENT = range(16)
+FOLLOW_BY_PROFILE, FOLLOW_PROFILE2, FOLLOW_BY_PROFILE2, CANCEL, OPTIONS_LIKE, OPTIONS_COMENT, NUM_FOLLOW = range(17)
 data = []
 
 
@@ -63,14 +63,15 @@ def reply_senha(update, context):
 def options(update, context):
     response = update.message.text
     if response == "1":
-        say_1 = "Você deseja seguir pessoas por perfil, sugeridos ou localização?\n\n"\
+        say_1 = "Você deseja seguir quantas pessoas?"
+        '''say_1 = "Você deseja seguir pessoas por perfil, sugeridos ou localização?\n\n"\
                 "Digite 1 para seguir por sugeridos\n" \
                 "Digite 2 para seguir por perfil e sugeridos \n" \
                 "Digite 3 para seguir por perfil\n" \
                 "Digite 4 para seguir por localização\n" \
-                "Para cancelar digite sair"
+                "Para cancelar digite sair"'''
         update.message.reply_text(say_1)
-        return OPTIONS_FOLLOW
+        return NUM_FOLLOW
     elif response == "2":
         say_2 = "Você deseja curtir fotos do feed ou de alguma hashtag?\n\n" \
                 "Digite 1 para curtir fotos do feed\n" \
@@ -89,6 +90,23 @@ def options(update, context):
         context.bot.send_message(chat_id=update.effective_chat.id, text="Desculpe, não entendi. Vou repetir as opções:\n\n Digite 1 para seguir, 2 para curtir e 3 para comentar")
         data.clear()
         return OPTIONS
+
+def num_follow(user_num_follow):
+    answer_num = "Entendi, você deseja seguir: "+ user_num_follow + " pessoas.\n\n" \
+               "Você deseja seguir pessoas por perfil, sugeridos ou localização?\n\n" \
+               "Digite 1 para seguir por sugeridos\n" \
+               "Digite 2 para seguir por perfil e sugeridos \n" \
+               "Digite 3 para seguir por perfil\n" \
+               "Digite 4 para seguir por localização\n" \
+               "Para cancelar digite sair"
+    data.append(user_num_follow)
+    print(data[2])
+    return answer_num
+
+def reply_num_follow(update, context):
+    user_num_follow = update.message.text
+    update.message.reply_text(num_follow(user_num_follow))
+    return OPTIONS_FOLLOW
 
 def options_coment(update, context):
     response_option_follow = (update.message.text).upper()
@@ -405,8 +423,8 @@ def options_follow(update, context):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-        #driver = webdriver.Chrome(executable_path="telebot/chromedriver")
+        #driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path="telebot/chromedriver")
         driver.get("https://instagram.com")
         time.sleep(2)
         driver.find_element_by_xpath("//input[@name=\"username\"]") \
@@ -422,7 +440,7 @@ def options_follow(update, context):
         driver.get("https://www.instagram.com/explore/people/suggested/")
         time.sleep(2)
         count_follow=0
-        for i in range(4):
+        for i in range(data[2]):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
@@ -455,7 +473,7 @@ def options_follow(update, context):
 def follow_profile(user_follow_profile):
     answer_follow_profile = "Você deseja extrair seguidores do perfil: @"+ user_follow_profile + ".\n\n Podemos começar?"
     data.append(user_follow_profile)
-    print(data[2])
+    print(data[3])
     return answer_follow_profile
 
 def reply_follow_profile(update, context):
@@ -487,7 +505,7 @@ def follow_by_profile(update, context):
         driver.get("https://www.instagram.com/"+ data[2] +"/followers/?hl=pt-br")
         time.sleep(3)
         count_follow = 0
-        for i in range(20):
+        for i in range(data[3]):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
@@ -544,7 +562,7 @@ def follow_by_profile2(update, context):
         element.click()
         time.sleep(2)
         count_follow=0
-        for i in range(20):
+        for i in range(data[3]):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
@@ -599,6 +617,7 @@ def main():
             CANCEL: [MessageHandler(Filters.text, cancel)],
             OPTIONS_LIKE: [MessageHandler(Filters.text, options_like)],
             OPTIONS_COMENT: [MessageHandler(Filters.text, options_coment)],
+            NUM_FOLLOW: [MessageHandler(Filters.text, reply_num_follow)],
     },
     fallbacks=[CommandHandler('start', cancel)]
     )
