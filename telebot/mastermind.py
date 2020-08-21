@@ -92,7 +92,7 @@ def options(update, context):
         return OPTIONS
 
 def num_follow(user_num_follow):
-    answer_num = "Entendi, você deseja seguir: "+ user_num_follow + " pessoas.\n\n" \
+    answer_num = "Entendi, você deseja seguir "+ user_num_follow + " pessoas.\n\n" \
                "Você deseja seguir pessoas por perfil, sugeridos ou localização?\n\n" \
                "Digite 1 para seguir por sugeridos\n" \
                "Digite 2 para seguir por perfil e sugeridos \n" \
