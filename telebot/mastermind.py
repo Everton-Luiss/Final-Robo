@@ -600,7 +600,7 @@ def main():
             OPTIONS_LIKE: [MessageHandler(Filters.text, options_like)],
             OPTIONS_COMENT: [MessageHandler(Filters.text, options_coment)],
     },
-    fallbacks=[CommandHandler('cancel', cancel)]
+    fallbacks=[CommandHandler('start', cancel)]
     )
 
     dispatcher.add_handler(conv_handler)
