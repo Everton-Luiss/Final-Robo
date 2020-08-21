@@ -491,7 +491,6 @@ def follow_by_profile(update, context):
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
         driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-        #driver = webdriver.Chrome(executable_path="telebot/chromedriver")
         driver.get("https://instagram.com")
         time.sleep(2)
         driver.find_element_by_xpath("//input[@name=\"username\"]") \
