@@ -466,7 +466,7 @@ def reply_follow_profile(update, context):
 def follow_by_profile(update, context):
     response_follow_profile = (update.message.text).upper()
     if response_follow_profile == "SIM" or response_follow_profile == "S":
-        context.bot.send_message(chat_id=update.effective_chat.id, text="VVVVamo arrochaaaar!")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Vamo arrochaaaar!")
         time.sleep(2)
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -520,7 +520,7 @@ def reply_follow_profile2(update, context):
 def follow_by_profile2(update, context):
     response_follow_profile = (update.message.text).upper()
     if response_follow_profile == "SIM" or response_follow_profile == "S":
-        context.bot.send_message(chat_id=update.effective_chat.id, text="VVVVamo arrochaaaar!")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Vamo arrochaaaar!")
         time.sleep(2)
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
