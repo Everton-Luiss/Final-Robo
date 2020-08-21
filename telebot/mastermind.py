@@ -423,8 +423,8 @@ def options_follow(update, context):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        #driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-        driver = webdriver.Chrome(executable_path="telebot/chromedriver")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        #driver = webdriver.Chrome(executable_path="telebot/chromedriver")
         driver.get("https://instagram.com")
         time.sleep(2)
         driver.find_element_by_xpath("//input[@name=\"username\"]") \
@@ -440,7 +440,7 @@ def options_follow(update, context):
         driver.get("https://www.instagram.com/explore/people/suggested/")
         time.sleep(2)
         count_follow=0
-        for i in range(data[2]):
+        for i in range(int(data[2])):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
@@ -502,10 +502,10 @@ def follow_by_profile(update, context):
         driver.find_element_by_xpath('//button[@type="submit"]') \
             .click()
         time.sleep(3)
-        driver.get("https://www.instagram.com/"+ data[2] +"/followers/?hl=pt-br")
+        driver.get("https://www.instagram.com/"+ data[3] +"/followers/?hl=pt-br")
         time.sleep(3)
         count_follow = 0
-        for i in range(data[3]):
+        for i in range(int(data[2])):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
@@ -556,13 +556,13 @@ def follow_by_profile2(update, context):
         driver.find_element_by_xpath('//button[@type="submit"]') \
             .click()
         time.sleep(3)
-        driver.get("https://www.instagram.com/"+ data[2] +"/")
+        driver.get("https://www.instagram.com/"+ data[3] +"/")
         time.sleep(3)
-        element = driver.find_element_by_xpath('//a[@href="/'+ data[2] +'/followers/"]')
+        element = driver.find_element_by_xpath('//a[@href="/'+ data[3] +'/followers/"]')
         element.click()
         time.sleep(2)
         count_follow=0
-        for i in range(data[3]):
+        for i in range(int(data[2])):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
@@ -597,7 +597,7 @@ def main():
     dispatcher = updater.dispatcher
 
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('iniciar', start), CommandHandler('cancelar', cancel)],
+        entry_points=[CommandHandler('start', start), CommandHandler('cancelar', cancel)],
         states={
             BEGIN: [MessageHandler(Filters.text, begin)],
             LOGIN: [MessageHandler(Filters.text, reply)],
@@ -619,7 +619,7 @@ def main():
             OPTIONS_COMENT: [MessageHandler(Filters.text, options_coment)],
             NUM_FOLLOW: [MessageHandler(Filters.text, reply_num_follow)],
     },
-    fallbacks=[CommandHandler('start', cancel)]
+    fallbacks=[CommandHandler('cancel', cancel)]
     )
 
     dispatcher.add_handler(conv_handler)
