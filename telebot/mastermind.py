@@ -445,8 +445,13 @@ def follow_by_profile(update, context):
     if response_follow_profile == "SIM" or response_follow_profile == "S":
         context.bot.send_message(chat_id=update.effective_chat.id, text="VVVVamo arrochaaaar!")
         time.sleep(2)
-
-        driver = webdriver.Chrome(executable_path="telebot/chromedriver")
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        #driver = webdriver.Chrome(executable_path="telebot/chromedriver")
         driver.get("https://instagram.com")
         time.sleep(2)
         driver.find_element_by_xpath("//input[@name=\"username\"]") \
@@ -494,7 +499,13 @@ def follow_by_profile2(update, context):
     if response_follow_profile == "SIM" or response_follow_profile == "S":
         context.bot.send_message(chat_id=update.effective_chat.id, text="VVVVamo arrochaaaar!")
         time.sleep(2)
-        driver = webdriver.Chrome(executable_path="telebot/chromedriver")
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        #driver = webdriver.Chrome(executable_path="telebot/chromedriver")
         driver.get("https://instagram.com")
         time.sleep(2)
         driver.find_element_by_xpath("//input[@name=\"username\"]") \
