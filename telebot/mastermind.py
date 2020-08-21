@@ -399,7 +399,7 @@ def options_follow(update, context):
         driver.get("https://www.instagram.com/explore/people/suggested/")
         time.sleep(2)
         count_follow=0
-        for i in range(4):
+        for i in range(3):
             driver.find_element_by_xpath('//button[text()="Follow"]') \
                 .click()
             count_follow+=1
