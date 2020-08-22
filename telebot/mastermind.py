@@ -267,7 +267,6 @@ def reply_hash_coment(update, context):
     user_hashtag = update.message.text
     update.message.reply_text(hash_coment(user_hashtag))
     return COMENTARIOS
-
 def options_like(update, context):
     response_option_follow = (update.message.text).upper()
     if response_option_follow == "1":
