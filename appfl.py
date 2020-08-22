@@ -1,13 +1,11 @@
 from flask import Flask, request
 import telegram
-#from telebot.credentials import bot_token, bot_user_name,URL
+from telebot.credentials import bot_token, bot_user_name,URL
 from telebot.mastermind import get_response
 
 global bot
 global TOKEN
-
-TOKEN = '1230428394:AAHGrYpN5YIzROkBTUf08xll_tFT7h6KZ-Q'
-URL = "https://final-robo2.herokuapp.com/"
+TOKEN = bot_token
 bot = telegram.Bot(token=TOKEN)
 
 app = Flask(__name__)
