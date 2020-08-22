@@ -17,7 +17,7 @@ data = []
 
 
 def get_response(msg):
-    return start
+    return 'ok'
 
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Olá, me chamo Ana. Sou seu robô assistente e vou te ajudar a ter mais seguidores no instagram! Vamos começar?")
