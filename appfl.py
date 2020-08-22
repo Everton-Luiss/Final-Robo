@@ -7,6 +7,7 @@ global bot
 global TOKEN
 
 TOKEN = '1230428394:AAHGrYpN5YIzROkBTUf08xll_tFT7h6KZ-Q'
+URL = "https://final-robo2.herokuapp.com/"
 bot = telegram.Bot(token=TOKEN)
 
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def respond():
 
 @app.route('/setwebhook', methods=['GET', 'POST'])
 def set_webhook():
-    s = bot.setWebhook('{URL}{HOOK}'.format(URL='https://final-robo2.herokuapp.com/', HOOK=TOKEN))
+    s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
     if s:
         return "webhook setup ok"
     else:
