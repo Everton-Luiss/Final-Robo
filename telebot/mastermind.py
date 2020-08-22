@@ -458,6 +458,7 @@ def options_follow(update, context):
     elif response_option_follow == 'SAIR':
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="Pena que você já vai.\n\n Se precisar de min é só chamar")
+        data.clear()
         return ConversationHandler.END
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,
@@ -467,7 +468,7 @@ def options_follow(update, context):
                                     "Digite 3 para seguir por perfil\n" \
                                     "Digite 4 para seguir por localização\n"
                                     "Para cancelar digite sair")
-        #data.clear()
+
         return OPTIONS_FOLLOW
 def follow_profile(user_follow_profile):
     answer_follow_profile = "Você deseja extrair seguidores do perfil: @"+ user_follow_profile + ".\n\n Podemos começar?"
