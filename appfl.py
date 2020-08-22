@@ -38,7 +38,7 @@ def set_webhook():
 
 @app.route('/')
 def index():
-    return '.'
+    return '...'
 
 if __name__ == '__main__':
     app.run(threaded=True)
